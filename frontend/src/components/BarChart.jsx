@@ -10,12 +10,12 @@ import {
   Legend,
 } from "chart.js";
 
-// Register Chart.js components explicitly
+// Register the required components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const BarChart = ({ data }) => {
-  const activeCount = data.filter((client) => client.status === "Active").length;
-  const inactiveCount = data.filter((client) => client.status === "Inactive").length;
+  const activeCount = data.filter((item) => item.status === "Active").length;
+  const inactiveCount = data.filter((item) => item.status === "Inactive").length;
 
   const chartData = {
     labels: ["Active", "Inactive"],
@@ -37,17 +37,12 @@ const BarChart = ({ data }) => {
       },
       title: {
         display: true,
-        text: "Client Status Distribution",
+        text: "Active vs Inactive Clients",
       },
     },
   };
 
-  return (
-    <div className="mb-4">
-      <h4>Active vs Inactive Clients</h4>
-      <Bar data={chartData} options={options} />
-    </div>
-  );
+  return <Bar data={chartData} options={options} />;
 };
 
 export default BarChart;

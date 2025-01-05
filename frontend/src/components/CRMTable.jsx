@@ -1,7 +1,39 @@
-import React, { useState } from "react";
-import { Table } from "react-bootstrap";
+// import React from "react";
 
-const CRMTable = ({ data, onSort }) => {
+// const CRMTable = ({ data }) => {
+//   return (
+//     <div className="table-responsive">
+//       <table className="table table-striped">
+//         <thead>
+//           <tr>
+//             <th>ID</th>
+//             <th>Name</th>
+//             <th>Email</th>
+//             <th>Opportunity Value</th>
+//             <th>Status</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {data.map((item) => (
+//             <tr key={item.id}>
+//               <td>{item.id}</td>
+//               <td>{item.name}</td>
+//               <td>{item.email}</td>
+//               <td>${item.opportunityValue}</td>
+//               <td>{item.status}</td>
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//     </div>
+//   );
+// };
+
+// export default CRMTable;
+
+import React, { useState } from "react";
+
+const CRMTable = ({ data,onSort }) => {
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
 
   const handleSort = (key) => {
@@ -12,9 +44,9 @@ const CRMTable = ({ data, onSort }) => {
     setSortConfig({ key, direction });
     onSort(key, direction);
   };
-
   return (
-    <Table striped bordered hover responsive>
+    <div className="table-responsive overflow-auto" style={{ maxHeight: "240px" }}>
+      <table className="table table-striped table-dark">
       <thead>
         <tr style={{ cursor: "pointer" }}>
           <th onClick={() => handleSort("id")}>ID</th>
@@ -24,18 +56,19 @@ const CRMTable = ({ data, onSort }) => {
           <th onClick={() => handleSort("status")}>Status</th>
         </tr>
       </thead>
-      <tbody>
-        {data.map((client) => (
-          <tr key={client.id}>
-            <td>{client.id}</td>
-            <td>{client.name}</td>
-            <td>{client.email}</td>
-            <td>${client.opportunityValue}</td>
-            <td>{client.status}</td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id}>
+              <td>{item.id}</td>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>${item.opportunityValue}</td>
+              <td>{item.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

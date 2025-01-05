@@ -1,46 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Filters = ({ onFilter }) => {
-  const [status, setStatus] = useState("All");
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(100000);
-
-  const handleFilterChange = () => {
-    onFilter({ status, minValue, maxValue });
+const Filters = ({ filters, setFilters, applyFilters }) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <div className="d-flex justify-content-between mb-4">
-      <div>
-        <label>Status:</label>
+    <div className="filters border">
+      <h5
+        className="d-flex justify-content-center align-items-center text-danger"
+        style={{
+          textShadow: "2px 2px 5px rgba(148, 76, 76, 0.3)",
+        }}
+      >Filters</h5>
+      <div className="form-group">
+        <label className="text-warning">Status</label>
         <select
+          name="status"
           className="form-control"
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          value={filters.status}
+          onChange={handleInputChange}
         >
-          <option>All</option>
-          <option>Active</option>
-          <option>Inactive</option>
+          <option value="All">All</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
         </select>
       </div>
-      <div>
-        <label>Opportunity Value Range:</label>
+      <div className="form-group">
+        <label className="text-warning">Opportunity Value</label>
         <input
           type="number"
+          name="min"
           className="form-control"
           placeholder="Min"
-          value={minValue}
-          onChange={(e) => setMinValue(Number(e.target.value))}
+          value={filters.min}
+          onChange={handleInputChange}
         />
         <input
           type="number"
+          name="max"
           className="form-control mt-2"
           placeholder="Max"
-          value={maxValue}
-          onChange={(e) => setMaxValue(Number(e.target.value))}
+          value={filters.max}
+          onChange={handleInputChange}
         />
       </div>
-      <button className="btn btn-primary" onClick={handleFilterChange}>
+      <button className="btn btn-primary mt-3" onClick={applyFilters}>
         Apply Filters
       </button>
     </div>
@@ -48,7 +54,3 @@ const Filters = ({ onFilter }) => {
 };
 
 export default Filters;
-
-
-
-
